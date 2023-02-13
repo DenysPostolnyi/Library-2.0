@@ -17,8 +17,8 @@
     <p>This book is free</p>
     <form th:method="PATCH" th:action="@{/books/{id}/select-person(id=${book.getBookID()})}">
         <label for="person">Select person</label>
-        <select name="person" id="person" th:object="${person}" th:field="*{personId}">
-            <option th:each="person: ${people}" th:value="${person.getPersonId()}" th:text="${person.getFullName()}"></option>
+        <select name="person" id="person" th:object="${person}" th:field="*{id}">
+            <option th:each="person: ${people}" th:value="${person.getId()}" th:text="${person.getFullName()}"></option>
         </select>
         <input type="submit" value="Choose person">
     </form>
