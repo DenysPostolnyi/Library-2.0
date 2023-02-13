@@ -30,7 +30,7 @@ public class Book {
     @Column(name = "year_of_pub")
     private int yearOfPub;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
 
@@ -49,20 +49,20 @@ public class Book {
         this.yearOfPub = yearOfPub;
     }
 
-    public long getBookID() {
-        return bookID;
-    }
-
-    public void setBookID(long bookID) {
-        this.bookID = bookID;
-    }
-
     public Person getPerson() {
         return person;
     }
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public long getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(long bookID) {
+        this.bookID = bookID;
     }
 
     public String getName() {

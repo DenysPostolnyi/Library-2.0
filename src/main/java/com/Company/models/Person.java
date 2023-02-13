@@ -1,9 +1,9 @@
 package com.Company.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -12,7 +12,7 @@ public class Person {
     @Id
     @Column(name = "person_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long personId;
+    private long id;
 
     // Name, Last Name, Surname - valid full name
     // John Kennedy
@@ -26,12 +26,13 @@ public class Person {
     private int yearOfBirth;
 
     @OneToMany(mappedBy = "person")
+    @Cascade(org.hibernate.annotations.CascadeType.REFRESH)
     private List<Book> books;
 
     public Person() {}
 
-    public Person(long personId, String fullName, int yearOfBirth) {
-        this.personId = personId;
+    public Person(long id, String fullName, int yearOfBirth) {
+        this.id = id;
         this.fullName = fullName;
         this.yearOfBirth = yearOfBirth;
     }
@@ -49,12 +50,12 @@ public class Person {
         this.books = books;
     }
 
-    public long getPersonId() {
-        return personId;
+    public long getId() {
+        return id;
     }
 
-    public void setPersonId(long personId) {
-        this.personId = personId;
+    public void setId(long personId) {
+        this.id = personId;
     }
 
     public String getFullName() {
@@ -72,5 +73,4 @@ public class Person {
     public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
     }
-
 }
