@@ -7,8 +7,16 @@
 <body>
 
 <div th:each="book: ${books}">
-    <a th:href="@{/books/{id}(id=${book.getBookID()})}" th:text="${book.getName()} + ', ' + ${book.getAuthorFullName()} + ', ' + ${book.getYearOfPub()}">book</a>
+    <a th:href="@{/books/{id}(id=${book.getBookID()})}"
+       th:text="${book.getName()} + ', ' + ${book.getAuthorFullName()} + ', ' + ${book.getYearOfPub()}">book</a>
 </div>
+<table>
+    <th:block th:each="page: ${#numbers.sequence(1, pagesAmount)}">
+        <tr>
+           <a th:href="@{'/books?page=' + ${page}}" th:text="${page}" style="padding-right: 0.6rem">PAGE</a>
+        </tr>
+    </th:block>
+</table>
 <hr>
 <br>
 <a href="/books/new">Add book</a>
