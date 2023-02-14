@@ -1,10 +1,13 @@
 package com.Company.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "Book")
@@ -33,6 +36,11 @@ public class Book {
     @ManyToOne()
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
+
+    @Column(name = "date_of_getting")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/YYYY")
+    private Date dateOfGetting;
 
     public Book() {}
 
@@ -87,5 +95,13 @@ public class Book {
 
     public void setYearOfPub(int yearOfPub) {
         this.yearOfPub = yearOfPub;
+    }
+
+    public Date getDateOfGetting() {
+        return dateOfGetting;
+    }
+
+    public void setDateOfGetting(Date dateOfGetting) {
+        this.dateOfGetting = dateOfGetting;
     }
 }

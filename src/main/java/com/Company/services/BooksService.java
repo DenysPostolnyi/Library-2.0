@@ -9,8 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,14 +32,14 @@ public class BooksService {
 
     public int getPagesAmount() {
         int amountOfItems = booksRepository.findAll().size();
-        if(amountOfItems % 2 == 0){
+        if (amountOfItems % 2 == 0) {
             return amountOfItems / 2;
         } else {
             return amountOfItems / 2 + 1;
         }
     }
 
-    public List<Book> findBooks(String name){
+    public List<Book> findBooks(String name) {
         return booksRepository.findByNameStartsWith(name);
     }
 
@@ -85,6 +85,32 @@ public class BooksService {
         Optional<Book> bookToSet = booksRepository.findById(id);
         bookToSet.ifPresent(value -> {
             value.setPerson(person);
+            bookToSet.get().setDateOfGetting(new Date());
         });
+    }
+
+    public Boolean checkDateDeadline(long id) {
+        Optional<Book> book = booksRepository.findById(id);
+        Date nowDate = new Date();
+        TimeUnit timeUnit = TimeUnit.DAYS;
+        if (book.isPresent()) {
+            return 5 - timeUnit.convert(nowDate.getTime() - book.get().getDateOfGetting().getTime(), TimeUnit.MILLISECONDS) > 0;
+        }
+        return null;
+    }
+
+    public Long getDifOfDate(long id) {
+        Optional<Book> book = booksRepository.findById(id);
+        Date nowDate = new Date();
+        TimeUnit timeUnit = TimeUnit.DAYS;
+        if (book.isPresent()) {
+            return timeUnit.convert(nowDate.getTime() - book.get().getDateOfGetting().getTime(), TimeUnit.MILLISECONDS);
+        }
+        return null;
+    }
+
+
+    public void test() {
+        System.out.println("test");
     }
 }

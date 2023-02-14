@@ -20,3 +20,4 @@ Application for library management using Spring MVC, Hibernate and JPA.
    книга сейчас находится у кого-то, получаем имя этого человека.
 4) Добавить автоматическую проверку на то, что человек просрочил возврат
    книги
+   (add column to Book table: alter table book add column date_of_getting DATE;)
