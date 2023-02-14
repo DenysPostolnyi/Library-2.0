@@ -31,7 +31,16 @@ public class BooksService {
     }
 
     public int getPagesAmount() {
-        return booksRepository.findAll().size() / 2;
+        int amountOfItems = booksRepository.findAll().size();
+        if(amountOfItems % 2 == 0){
+            return amountOfItems / 2;
+        } else {
+            return amountOfItems / 2 + 1;
+        }
+    }
+
+    public List<Book> findBooks(String name){
+        return booksRepository.findByNameStartsWith(name);
     }
 
     public Book findOne(long id) {
