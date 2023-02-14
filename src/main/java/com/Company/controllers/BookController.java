@@ -99,10 +99,22 @@ public class BookController {
         return "redirect:/books/{id}";
     }
 
-//    // select person who take book
+    // select person who take book
     @PatchMapping("/{id}/select-person")
     public String selectPerson(@PathVariable("id") long id, @ModelAttribute("person") Person person){
         booksService.setPerson(id, person);
         return "redirect:/books/{id}";
+    }
+
+    // searching for book
+    @GetMapping("/search")
+    public String findBook(@ModelAttribute("book") Book book){
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String searchingResult(@ModelAttribute("book") Book book, Model model){
+        model.addAttribute("books", booksService.findBooks(book.getName()));
+        return "/books/search";
     }
 }
