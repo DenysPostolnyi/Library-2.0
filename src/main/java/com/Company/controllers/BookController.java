@@ -31,6 +31,7 @@ public class BookController {
     @GetMapping()
     public String index(@RequestParam(value = "page", required = false) String page, Model model){
         int pageNumber = 1;
+        booksService.test();
         if(page != null){
             try{
                 pageNumber = Integer.parseInt(page);
@@ -47,6 +48,9 @@ public class BookController {
         model.addAttribute("book", booksService.findOne(id));
         model.addAttribute("personWhoTake", booksService.findOne(id).getPerson());
         model.addAttribute("people", peopleService.findAll());
+        if(!booksService.checkDateDeadline(id)){
+            model.addAttribute("overstayedDays", booksService.getDifOfDate(id));
+        }
         return "books/show";
     }
 
