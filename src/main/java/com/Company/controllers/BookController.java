@@ -36,7 +36,7 @@ public class BookController {
                 pageNumber = Integer.parseInt(page);
             } catch (Exception ignored){}
         }
-        model.addAttribute("books", booksService.findAll(pageNumber - 1));
+        model.addAttribute("books", booksService.findAllSortByYear(pageNumber - 1));
         model.addAttribute("pagesAmount", booksService.getPagesAmount());
         return "books/index";
     }

@@ -26,6 +26,10 @@ public class BooksService {
         return booksRepository.findAll(PageRequest.of(page, 2)).getContent();
     }
 
+    public List<Book> findAllSortByYear(int page) {
+        return booksRepository.findAll(PageRequest.of(page, 2, Sort.by("yearOfPub"))).getContent();
+    }
+
     public int getPagesAmount() {
         return booksRepository.findAll().size() / 2;
     }
