@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.function.ServerResponse;
 
 import javax.validation.Valid;
 
@@ -78,5 +79,17 @@ public class PeopleController {
     public String deletePerson(@PathVariable("id") long id) {
         peopleService.delete(id);
         return "redirect:/people";
+    }
+
+    // searching person
+    @GetMapping("/search")
+    public String searchPerson(@ModelAttribute("person") Person person){
+        return "people/search";
+    }
+
+    @PostMapping("/search")
+    public String searchResultPerson(@ModelAttribute("person") Person person, Model model){
+        model.addAttribute("people", peopleService.findByFullNameStart(person.getFullName()));
+        return "people/search";
     }
 }

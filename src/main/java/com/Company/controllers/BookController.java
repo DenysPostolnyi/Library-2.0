@@ -31,7 +31,6 @@ public class BookController {
     @GetMapping()
     public String index(@RequestParam(value = "page", required = false) String page, Model model){
         int pageNumber = 1;
-        booksService.test();
         if(page != null){
             try{
                 pageNumber = Integer.parseInt(page);
