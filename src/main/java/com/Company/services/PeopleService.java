@@ -35,6 +35,10 @@ public class PeopleService {
         return peopleRepository.findByFullName(name);
     }
 
+    public List<Person> findByFullNameStart(String name) {
+        return peopleRepository.findByFullNameStartsWith(name);
+    }
+
     public List<Book> getBooksByPersonId(long id){
         Optional<Person> person = peopleRepository.findById(id);
         if (person.isPresent()){
