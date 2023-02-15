@@ -15,7 +15,7 @@ public class PersonValidator implements Validator {
     private final PeopleService peopleService;
 
     @Autowired
-    private PersonValidator(PeopleService peopleService){
+    private PersonValidator(PeopleService peopleService) {
         this.peopleService = peopleService;
     }
 
@@ -30,7 +30,7 @@ public class PersonValidator implements Validator {
 
         // check if person is present
         Optional<Person> personFromDB = peopleService.findByName(person.getFullName());
-        if(personFromDB.isPresent() && personFromDB.get().getId() != person.getId()){
+        if (personFromDB.isPresent() && personFromDB.get().getId() != person.getId()) {
             errors.rejectValue("fullName", "", "This person is registered");
         }
     }

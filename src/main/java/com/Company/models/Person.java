@@ -29,7 +29,8 @@ public class Person {
     @Cascade(org.hibernate.annotations.CascadeType.REFRESH)
     private List<Book> books;
 
-    public Person() {}
+    public Person() {
+    }
 
     public Person(long id, String fullName, int yearOfBirth) {
         this.id = id;

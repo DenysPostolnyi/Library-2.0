@@ -13,7 +13,7 @@
 <table>
     <th:block th:each="page: ${#numbers.sequence(1, pagesAmount)}">
         <tr>
-           <a th:href="@{'/books?page=' + ${page}}" th:text="${page}" style="padding-right: 0.6rem">PAGE</a>
+            <a th:href="@{'/books?page=' + ${page}}" th:text="${page}" style="padding-right: 0.6rem">PAGE</a>
         </tr>
     </th:block>
 </table>

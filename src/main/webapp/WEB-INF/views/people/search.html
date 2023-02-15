@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Search</title>
+    <meta charset="UTF-8">
+    <title>Search</title>
 </head>
 <body>
 <form th:action="@{/people/search}" th:method="POST" th:object="${person}">
-  <label for="searching">Name: </label>
-  <input id="searching" name="searching" type="text" th:field="*{fullName}" th:value="${person.getFullName()}">
-  <input type="submit" value="Search">
+    <label for="searching">Name: </label>
+    <input id="searching" name="searching" type="text" th:field="*{fullName}" th:value="${person.getFullName()}">
+    <input type="submit" value="Search">
 </form>
 <div th:if="${people != null}" th:each="person: ${people}">
     <a th:href="@{/people/{id}(id=${person.getId()})}"
