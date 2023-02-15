@@ -62,7 +62,7 @@ set automatically generation of id.
 ![img_16.png](img/img_16.png)
 
 ### Page with list of books with pagination (utl: /books)
-![img.png](img.png)
+![img.png](img/img.png)
 
 ### Page for creating new book (url: /books/new)
 
@@ -88,13 +88,13 @@ Choosing person
 ![img_23.png](img/img_23.png)  
 
 Person took this book  
-![img_2.png](img_2.png)
+![img_2.png](img/img_2.png)
 
 Person took this book and missed deadline
-![img_1.png](img_1.png)
+![img_1.png](img/img_1.png)
 
 ### Page for searching book
 
-![img_3.png](img_3.png)
+![img_3.png](img/img_3.png)
 
-![img_4.png](img_4.png)
+![img_4.png](img/img_4.png)
