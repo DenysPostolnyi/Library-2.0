@@ -17,7 +17,9 @@
         <label for="author_full_name">Enter author's full name</label>
         <input id="author_full_name" name="author_full_name" type="text" th:field="*{authorFullName}">
     </div>
-    <div style="color: red" th:if="${#fields.hasErrors('authorFullName')}" th:errors="*{authorFullName}">Author's full name error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('authorFullName')}" th:errors="*{authorFullName}">Author's full
+        name error
+    </div>
 
     <br>
     <div>

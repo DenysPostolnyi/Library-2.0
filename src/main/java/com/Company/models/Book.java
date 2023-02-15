@@ -42,7 +42,8 @@ public class Book {
     @DateTimeFormat(pattern = "dd/MM/YYYY")
     private Date dateOfGetting;
 
-    public Book() {}
+    public Book() {
+    }
 
     public Book(long bookID, String name, String authorFullName, int yearOfPub) {
         this.bookID = bookID;

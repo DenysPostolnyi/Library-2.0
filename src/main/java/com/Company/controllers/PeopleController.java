@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.function.ServerResponse;
 
 import javax.validation.Valid;
 
@@ -49,7 +48,7 @@ public class PeopleController {
     @PostMapping()
     public String addPerson(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         personValidator.validate(person, bindingResult);
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "people/new";
         }
         peopleService.save(person);
@@ -67,7 +66,7 @@ public class PeopleController {
     public String update(@PathVariable("id") long id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         person.setId(id);
         personValidator.validate(person, bindingResult);
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "people/update";
         }
         peopleService.update(id, person);
@@ -83,12 +82,12 @@ public class PeopleController {
 
     // searching person
     @GetMapping("/search")
-    public String searchPerson(@ModelAttribute("person") Person person){
+    public String searchPerson(@ModelAttribute("person") Person person) {
         return "people/search";
     }
 
     @PostMapping("/search")
-    public String searchResultPerson(@ModelAttribute("person") Person person, Model model){
+    public String searchResultPerson(@ModelAttribute("person") Person person, Model model) {
         model.addAttribute("people", peopleService.findByFullNameStart(person.getFullName()));
         return "people/search";
     }

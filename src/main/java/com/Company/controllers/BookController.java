@@ -21,7 +21,7 @@ public class BookController {
     private final PeopleService peopleService;
 
     @Autowired
-    public BookController(BooksService booksService, BookValidator bookValidator, PeopleService peopleService){
+    public BookController(BooksService booksService, BookValidator bookValidator, PeopleService peopleService) {
         this.booksService = booksService;
         this.bookValidator = bookValidator;
         this.peopleService = peopleService;
@@ -29,12 +29,13 @@ public class BookController {
 
     // show all book
     @GetMapping()
-    public String index(@RequestParam(value = "page", required = false) String page, Model model){
+    public String index(@RequestParam(value = "page", required = false) String page, Model model) {
         int pageNumber = 1;
-        if(page != null){
-            try{
+        if (page != null) {
+            try {
                 pageNumber = Integer.parseInt(page);
-            } catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         model.addAttribute("books", booksService.findAllSortByYear(pageNumber - 1));
         model.addAttribute("pagesAmount", booksService.getPagesAmount());
@@ -43,11 +44,11 @@ public class BookController {
 
     // show book
     @GetMapping("/{id}")
-    public String showBook(@PathVariable("id") long id, Model model, @ModelAttribute("person") Person person){
+    public String showBook(@PathVariable("id") long id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", booksService.findOne(id));
         model.addAttribute("personWhoTake", booksService.findOne(id).getPerson());
         model.addAttribute("people", peopleService.findAll());
-        if(!booksService.checkDateDeadline(id)){
+        if (!booksService.checkDateDeadline(id)) {
             model.addAttribute("overstayedDays", booksService.getDifOfDate(id));
         }
         return "books/show";
@@ -55,15 +56,15 @@ public class BookController {
 
     // adding book
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("book") Book book){
+    public String newBook(@ModelAttribute("book") Book book) {
         return "/books/new";
     }
 
     @PostMapping()
-    public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
+    public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
         bookValidator.validate(book, bindingResult);
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "/books/new";
         }
         booksService.save(book);
@@ -72,16 +73,16 @@ public class BookController {
 
     // updating book
     @GetMapping("/{id}/edit")
-    public String changeBook(@PathVariable("id") long id, Model model){
+    public String changeBook(@PathVariable("id") long id, Model model) {
         model.addAttribute("book", booksService.findOne(id));
         return "books/update";
     }
 
     @PatchMapping("/{id}")
-    public String updateBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable("id") long id){
+    public String updateBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable("id") long id) {
         book.setBookID(id);
         bookValidator.validate(book, bindingResult);
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "books/update";
         }
         booksService.update(id, book);
@@ -90,33 +91,33 @@ public class BookController {
 
     // deleting book
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable("id") long id){
+    public String deleteBook(@PathVariable("id") long id) {
         booksService.delete(id);
         return "redirect:/books";
     }
 
     // free book
     @GetMapping("/{id}/free")
-    public String freeBook(@PathVariable("id") long id){
+    public String freeBook(@PathVariable("id") long id) {
         booksService.freeBook(id);
         return "redirect:/books/{id}";
     }
 
     // select person who take book
     @PatchMapping("/{id}/select-person")
-    public String selectPerson(@PathVariable("id") long id, @ModelAttribute("person") Person person){
+    public String selectPerson(@PathVariable("id") long id, @ModelAttribute("person") Person person) {
         booksService.setPerson(id, person);
         return "redirect:/books/{id}";
     }
 
     // searching for book
     @GetMapping("/search")
-    public String findBook(@ModelAttribute("book") Book book){
+    public String findBook(@ModelAttribute("book") Book book) {
         return "books/search";
     }
 
     @PostMapping("/search")
-    public String searchingResult(@ModelAttribute("book") Book book, Model model){
+    public String searchingResult(@ModelAttribute("book") Book book, Model model) {
         model.addAttribute("books", booksService.findBooks(book.getName()));
         return "/books/search";
     }

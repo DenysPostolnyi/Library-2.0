@@ -22,16 +22,16 @@ public class PeopleService {
         this.peopleRepository = peopleRepository;
     }
 
-    public List<Person> findAll(){
+    public List<Person> findAll() {
         return peopleRepository.findAll();
     }
 
-    public Person findOne(long id){
+    public Person findOne(long id) {
         Optional<Person> foundPerson = peopleRepository.findById(id);
         return foundPerson.orElse(null);
     }
 
-    public Optional<Person> findByName(String name){
+    public Optional<Person> findByName(String name) {
         return peopleRepository.findByFullName(name);
     }
 
@@ -39,9 +39,9 @@ public class PeopleService {
         return peopleRepository.findByFullNameStartsWith(name);
     }
 
-    public List<Book> getBooksByPersonId(long id){
+    public List<Book> getBooksByPersonId(long id) {
         Optional<Person> person = peopleRepository.findById(id);
-        if (person.isPresent()){
+        if (person.isPresent()) {
             Hibernate.initialize(person.get().getBooks());
             return person.get().getBooks();
         } else {
@@ -50,18 +50,18 @@ public class PeopleService {
     }
 
     @Transactional
-    public void save(Person person){
+    public void save(Person person) {
         peopleRepository.save(person);
     }
 
     @Transactional
-    public void update(long id, Person updatedPerson){
+    public void update(long id, Person updatedPerson) {
         updatedPerson.setId(id);
         peopleRepository.save(updatedPerson); // этот метод для удаления и для обновления
     }
 
     @Transactional
-    public void delete(long id){
+    public void delete(long id) {
         peopleRepository.deleteById(id);
     }
 }
