@@ -63,8 +63,13 @@ public class BooksService {
 
     @Transactional
     public void update(long id, Book updatedBook) {
-        updatedBook.setBookID(id);
-        booksRepository.save(updatedBook); // этот метод для удаления и для обновления
+        Optional<Book> bookToUpdate = booksRepository.findById(id);
+        bookToUpdate.ifPresent(value -> {
+            updatedBook.setBookID(id);
+            updatedBook.setPerson(value.getPerson());
+            booksRepository.save(updatedBook); // этот метод для удаления и для обновления
+        });
+
     }
 
     @Transactional
@@ -77,6 +82,7 @@ public class BooksService {
         Optional<Book> bookToFree = booksRepository.findById(id);
         bookToFree.ifPresent(value -> {
             value.setPerson(null);
+            value.setDateOfGetting(null);
         });
     }
 
